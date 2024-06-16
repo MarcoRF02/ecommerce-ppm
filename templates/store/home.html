@@ -1,0 +1,60 @@
+{% extends "./base.html" %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+Hi {{ user.username }}!
+<div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="pb-3 h5">All Products</div>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 g-3">
+
+        {% for product in products %}
+
+        <div class="col">
+          <div class="card shadow-sm">
+            <img class="img-fluid" alt="Responsive image" src="{{ product.image.url }}">
+            <div class="card-body">
+              <p class="card-text">
+                <a class="text-dark text-decoration-none" href="{{ product.get_absolute_url }}">{{ product.title }}</a>
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <small class="text-muted"> Other info</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+{% else %}
+
+
+ <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="h1 fw-bold"> E-Commerce PPM Project</h1>
+            <p class="lead text-muted"> Here You Can View all the products, Filter by Category or Search What you need. But first you need to: </p>
+            <div class="text-end">
+                <a href="{% url 'accounts:login' %}" class="btn btn-outline-primary me-2">
+                    Log In
+                </a>
+                <a href="{% url 'accounts:signup' %}" class="btn btn-outline-primary me-2">
+                    Signup
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endif %}
+
+
+{% endblock %}
