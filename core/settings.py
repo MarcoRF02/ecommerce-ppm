@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['localhost']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -129,9 +129,13 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+
+
 #settings to configure to allow media to work locally, imported os too
 MEDIA_URL = 'media/'
 MEDIA_ROOT=os.path.join(BASE_DIR,'media/')
+
+
 
 
 #new
