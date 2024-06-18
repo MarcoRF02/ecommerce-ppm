@@ -1,0 +1,49 @@
+{% extends "../store/base.html" %}
+{% load static %}
+
+{% block content %}
+
+
+
+
+
+
+
+<div class="container mt-5">
+    <h2>Order History</h2>
+    <ul class="list-group">
+        {% for order in orders %}
+        <li class="list-group-item">
+            <h5>Order #{{ order.id }}</h5>
+            <p>Placed on: {{ order.created_at }}</p>
+            <p>Total: ${{ order.total }}</p>
+            <p>Shipping Address: {{ order.address }}</p>
+            <p>Status: Payed</p>
+            <ul>
+                {% for item in order.items.all %}
+                <li>Prodotto: {{ item.product.title }} - Quantity: {{ item.quantity }}</li>
+                {% endfor %}
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+<!--
+<h1>Order History</h1>
+<ul>
+    {% for order in orders %}
+        <li>Order {{ order.id }}: {{ order.created_at }} - {{ order.address }} - {{ order.payment_method }}</li>
+    {% endfor %}
+</ul>
+-->
+{% endblock %}

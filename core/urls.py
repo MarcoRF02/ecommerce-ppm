@@ -26,6 +26,8 @@ urlpatterns = [
     path('basket/', include('basket.urls',namespace='basket')),
     path("accounts/", include("accounts.urls")),  # new
     path("accounts/", include("django.contrib.auth.urls")),  # new
+    path('orders/', include('orders.urls')), #new order
+    path('orders/', include('orders.urls', namespace='orders')), #newnew
 
 ]
 

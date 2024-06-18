@@ -18,3 +18,12 @@ def category_list(request, category_slug):
     category = get_object_or_404(Category, slug=category_slug)
     products = Product.objects.filter(category=category) #find anything in db that has this category
     return render(request, 'store/products/category.html',{'category': category,'products':products})
+
+
+def search(request):
+    query = request.GET.get('q')
+    if query:
+        products = Product.objects.filter(title__icontains=query)  # Modify the filter condition based on your requirements
+    else:
+        products = Product.objects.all()
+    return render(request, 'store/search_results.html', {'products': products})
