@@ -1,16 +1,49 @@
 {% extends "../store/base.html" %}
 {% load static %}
-
+{% load crispy_forms_tags %}
 {% block content %}
+<div class="h-100 d-flex align-items-center justify-content-center">
 
-<div class="container mt-5">
     <h2>Checkout</h2>
+    </div>
+<div class="h-100 d-flex align-items-center justify-content-center">
+
     <form method="post" novalidate>
+
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
+
         <button type="submit" class="btn btn-primary">Place Order</button>
     </form>
+
 </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var cardExpiryInput = document.getElementById('id_card_expiry');
+
+            cardExpiryInput.addEventListener('input', function(e) {
+                var value = e.target.value.replace(/\D/g, '');
+                if (value.length >= 2) {
+                    value = value.slice(0, 2) + '/' + value.slice(2, 6);
+                }
+                e.target.value = value.slice(0, 7);  // Limit input to MM/YYYY
+            });
+
+            cardExpiryInput.addEventListener('keydown', function(e) {
+                var value = e.target.value;
+
+                // Allow backspace and delete keys to function normally
+                if (e.key === 'Backspace' || e.key === 'Delete') {
+                    return;
+                }
+
+                // Restrict input to digits and '/'
+                if (!/[0-9\/]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
 <!--
 <form method="post">
     {% csrf_token %}

@@ -1,3 +1,5 @@
+import decimal
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
@@ -60,7 +62,8 @@ def checkout(request):
 
 def calculate_total(request):
     cart_items = get_cart_items(request)
-    total = sum(item['product'].price * item['qty'] for item in cart_items)
+    shipping = 11.50
+    total = sum(item['product'].price * item['qty'] for item in cart_items) + decimal.Decimal(shipping)
     return total
 
 def get_cart_items(request):
